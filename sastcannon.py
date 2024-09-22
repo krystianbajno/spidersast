@@ -15,11 +15,16 @@ def main():
         action="store_true", 
         help="Collect page only and exit the program."
     )
-    
     parser.add_argument(
         "--scan-only", 
         action="store_true", 
         help="Scan only and quit the program"
+    )
+    parser.add_argument(
+        "--auth-header", 
+        type=str, 
+        help="Authentication header in the format 'Key=Value'", 
+        required=False
     )
 
     args = parser.parse_args()
@@ -33,8 +38,10 @@ def main():
     if not target:
         print("Provide target to collect from --url <target>")
         return
-        
-    collect(target)
+    
+    auth_header = args.auth_header
+
+    collect(target, auth_header)
     
     print("Collection completed.")
 
